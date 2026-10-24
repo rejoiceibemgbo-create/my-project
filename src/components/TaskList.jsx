@@ -19,19 +19,19 @@ export default function TaskList({
 
   if (tasks.length === 0) {
     return (
-      <div className="text-center py-16 px-4 bg-white dark:bg-slate-900 rounded-3xl border border-dashed border-slate-300 dark:border-slate-800">
-        <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-brand-50 dark:bg-brand-950/60 flex items-center justify-center text-brand-600 dark:text-brand-400">
-          <ClipboardCheck className="w-8 h-8" />
+      <div className="text-center py-12 sm:py-16 px-4 bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-dashed border-slate-300 dark:border-slate-800">
+        <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 rounded-2xl bg-brand-50 dark:bg-brand-950/60 flex items-center justify-center text-brand-600 dark:text-brand-400">
+          <ClipboardCheck className="w-7 h-7 sm:w-8 sm:h-8" />
         </div>
-        <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-1">
+        <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100 mb-1">
           No tasks found
         </h3>
-        <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto mb-6">
+        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto mb-5 sm:mb-6 leading-relaxed">
           There are no tasks matching your current filter criteria or search query. Create a new task or adjust your filters.
         </p>
         <button
           onClick={onOpenNewTask}
-          className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm shadow-md shadow-brand-500/25 transition-all active:scale-95"
+          className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs sm:text-sm shadow-md shadow-brand-500/25 transition-all active:scale-95"
         >
           <Plus className="w-4 h-4 stroke-[2.5]" />
           <span>Create Task</span>
@@ -41,20 +41,20 @@ export default function TaskList({
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 sm:space-y-4">
       {/* List Header & Bulk Actions */}
-      <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-1">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400 px-1">
         <span>
           Showing <strong className="text-slate-700 dark:text-slate-200">{tasks.length}</strong> {tasks.length === 1 ? 'task' : 'tasks'}
         </span>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           {pendingCount > 0 && (
             <button
               onClick={onBulkComplete}
-              className="inline-flex items-center gap-1 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium py-1 px-2 rounded hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-colors"
+              className="inline-flex items-center gap-1.5 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium py-1 px-2.5 rounded-lg bg-emerald-50/50 hover:bg-emerald-50 dark:bg-emerald-950/20 dark:hover:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 transition-colors"
             >
-              <CheckCheck className="w-3.5 h-3.5 text-emerald-500" />
+              <CheckCheck className="w-3.5 h-3.5" />
               <span>Complete all shown</span>
             </button>
           )}
@@ -62,9 +62,9 @@ export default function TaskList({
           {completedCount > 0 && (
             <button
               onClick={onBulkDeleteCompleted}
-              className="inline-flex items-center gap-1 hover:text-rose-600 dark:hover:text-rose-400 font-medium py-1 px-2 rounded hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
+              className="inline-flex items-center gap-1.5 hover:text-rose-600 dark:hover:text-rose-400 font-medium py-1 px-2.5 rounded-lg bg-rose-50/50 hover:bg-rose-50 dark:bg-rose-950/20 dark:hover:bg-rose-950/40 text-rose-700 dark:text-rose-400 transition-colors"
             >
-              <Trash className="w-3.5 h-3.5 text-rose-500" />
+              <Trash className="w-3.5 h-3.5" />
               <span>Clear completed ({completedCount})</span>
             </button>
           )}
@@ -72,7 +72,7 @@ export default function TaskList({
       </div>
 
       {/* Task Cards Stack */}
-      <div className="space-y-3">
+      <div className="space-y-2.5 sm:space-y-3">
         {tasks.map((task) => (
           <TaskCard
             key={task.id}

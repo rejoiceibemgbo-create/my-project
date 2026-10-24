@@ -260,7 +260,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col transition-colors">
       
-      {/* Header */}
+      {/* Header with Hamburger Menu */}
       <Header
         darkMode={darkMode}
         setDarkMode={setDarkMode}
@@ -272,19 +272,20 @@ export default function Home() {
         onOpenDocs={() => setIsDocsOpen(true)}
         onResetData={handleResetData}
         totalTasks={tasks.length}
+        tasks={tasks}
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
         
         {/* Welcome & Context Banner */}
-        <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-3xl bg-gradient-to-r from-brand-600 via-indigo-600 to-indigo-700 text-white shadow-xl shadow-brand-500/10">
+        <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-brand-600 via-indigo-600 to-indigo-700 text-white shadow-xl shadow-brand-500/10">
           <div>
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-md mb-2">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Operations Portal</span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight">
+            <h2 className="text-lg sm:text-2xl font-extrabold tracking-tight">
               BrightEdge Operations Dashboard
             </h2>
             <p className="text-xs sm:text-sm text-indigo-100 max-w-2xl mt-1 leading-relaxed">
@@ -292,10 +293,10 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="flex items-center gap-2 self-start md:self-auto">
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 w-full sm:w-auto">
             <button
               onClick={() => setIsDocsOpen(true)}
-              className="px-3.5 py-2 text-xs font-semibold rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 transition-all"
+              className="flex-1 sm:flex-none px-3.5 py-2.5 sm:py-2 text-xs font-semibold rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 transition-all text-center"
             >
               How it works
             </button>
@@ -304,7 +305,7 @@ export default function Home() {
                 setEditingTask(null);
                 setIsTaskModalOpen(true);
               }}
-              className="px-4 py-2 text-xs font-semibold rounded-xl bg-white text-brand-700 hover:bg-brand-50 shadow-md transition-all active:scale-95"
+              className="flex-1 sm:flex-none px-4 py-2.5 sm:py-2 text-xs font-semibold rounded-xl bg-white text-brand-700 hover:bg-brand-50 shadow-md transition-all active:scale-95 text-center"
             >
               + Create Task
             </button>

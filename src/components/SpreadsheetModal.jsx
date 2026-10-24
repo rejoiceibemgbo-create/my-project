@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   X, 
   FileSpreadsheet, 
@@ -21,6 +21,18 @@ export default function SpreadsheetModal({
 }) {
   const [csvText, setCsvText] = useState('');
   const [importMessage, setImportMessage] = useState(null);
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -93,36 +105,37 @@ export default function SpreadsheetModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
       <div 
-        className="w-full max-w-xl bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden transform transition-all animate-in fade-in zoom-in-95 duration-150"
+        className="w-full max-w-xl bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden transform transition-all animate-in fade-in zoom-in-95 duration-150 max-h-[92dvh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 border-b border-slate-100 dark:border-slate-800 shrink-0">
           <div className="flex items-center space-x-2.5">
-            <div className="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
+            <div className="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 shrink-0">
               <FileSpreadsheet className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                Spreadsheet Integration & Data Portability
+              <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
+                Spreadsheet Integration & Portability
               </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                Easily transition away from manual spreadsheets or export team reports
+              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400">
+                Import CSV spreadsheet or export team reports
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
             className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            aria-label="Close modal"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-6">
+        <div className="p-4 sm:p-6 space-y-5 sm:space-y-6 overflow-y-auto flex-1">
           
           {importMessage && (
             <div
@@ -143,16 +156,16 @@ export default function SpreadsheetModal({
 
           {/* Section 1: Export */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+            <h4 className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">
               Export BrightEdge Operations Data
             </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
               <button
                 type="button"
                 onClick={handleExportCSV}
-                className="flex items-center space-x-3 p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-emerald-500 dark:hover:border-emerald-500 bg-slate-50 dark:bg-slate-800/50 hover:bg-emerald-50/40 dark:hover:bg-emerald-950/20 text-left transition-all"
+                className="flex items-center space-x-3 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-emerald-500 dark:hover:border-emerald-500 bg-slate-50 dark:bg-slate-800/50 hover:bg-emerald-50/40 dark:hover:bg-emerald-950/20 text-left transition-all active:scale-98"
               >
-                <div className="p-2.5 rounded-xl bg-emerald-500 text-white shrink-0">
+                <div className="p-2 sm:p-2.5 rounded-xl bg-emerald-500 text-white shrink-0">
                   <Download className="w-4 h-4" />
                 </div>
                 <div>
@@ -160,7 +173,7 @@ export default function SpreadsheetModal({
                     Export as CSV
                   </span>
                   <span className="block text-[11px] text-slate-500">
-                    Open in Microsoft Excel or Google Sheets
+                    Open in Excel or Google Sheets
                   </span>
                 </div>
               </button>
@@ -168,7 +181,7 @@ export default function SpreadsheetModal({
               <button
                 type="button"
                 onClick={handleExportJSON}
-                className="flex items-center space-x-3 p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-500 bg-slate-50 dark:bg-slate-800/50 hover:bg-indigo-50/40 dark:hover:bg-indigo-950/20 text-left transition-all"
+                className="flex items-center space-x-3 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-500 bg-slate-50 dark:bg-slate-800/50 hover:bg-indigo-50/40 dark:hover:bg-indigo-950/20 text-left transition-all active:scale-98"
               >
                 <div className="p-2.5 rounded-xl bg-indigo-500 text-white shrink-0">
                   <FileJson className="w-4 h-4" />
@@ -187,9 +200,9 @@ export default function SpreadsheetModal({
 
           {/* Section 2: Import from Spreadsheet */}
           <div>
-            <div className="flex items-center justify-between mb-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                Import from Legacy Spreadsheet (.csv)
+            <div className="flex items-center justify-between mb-2.5 flex-wrap gap-1">
+              <h4 className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-400">
+                Import from Spreadsheet (.csv)
               </h4>
               <button
                 type="button"
@@ -202,13 +215,13 @@ export default function SpreadsheetModal({
             </div>
 
             {/* File drop area */}
-            <label className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-400 rounded-2xl cursor-pointer bg-slate-50 dark:bg-slate-800/40 hover:bg-brand-50/20 dark:hover:bg-brand-950/20 transition-all">
-              <Upload className="w-8 h-8 text-brand-600 dark:text-brand-400 mb-2" />
+            <label className="flex flex-col items-center justify-center p-4 sm:p-6 border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-400 rounded-2xl cursor-pointer bg-slate-50 dark:bg-slate-800/40 hover:bg-brand-50/20 dark:hover:bg-brand-950/20 transition-all text-center">
+              <Upload className="w-6 h-6 sm:w-8 sm:h-8 text-brand-600 dark:text-brand-400 mb-2" />
               <span className="text-xs font-bold text-slate-700 dark:text-slate-200">
-                Click to upload CSV spreadsheet
+                Tap to upload CSV spreadsheet
               </span>
               <span className="text-[11px] text-slate-400 mt-0.5">
-                Supports columns: Title, Description, Priority, Due Date
+                Supports: Title, Description, Priority, Due Date
               </span>
               <input
                 type="file"
@@ -234,7 +247,7 @@ export default function SpreadsheetModal({
                 type="button"
                 disabled={!csvText.trim()}
                 onClick={handlePasteImport}
-                className="mt-2 w-full py-2 text-xs font-semibold rounded-xl bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                className="mt-2 w-full py-2.5 text-xs font-semibold rounded-xl bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-98"
               >
                 Process & Import Pasted CSV
               </button>
@@ -244,7 +257,7 @@ export default function SpreadsheetModal({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-3 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+        <div className="px-4 sm:px-6 py-3 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800 flex justify-end shrink-0">
           <button
             type="button"
             onClick={onClose}
