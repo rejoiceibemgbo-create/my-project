@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="brightedge-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#312e81" flood-opacity="0.3" />
+    </filter>
+  </defs>
+  
+  <!-- Rounded Base Card -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#brightedge-grad)" filter="url(#shadow)" />
+  
+  <!-- Checkmark Icon in White -->
+  <path d="M19 33.5 L27 41.5 L45 23.5" fill="none" stroke="#ffffff" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- Active Green Indicator Dot -->
+  <circle cx="50" cy="14" r="7" fill="#10b981" stroke="#ffffff" stroke-width="2.5" />
+</svg>
